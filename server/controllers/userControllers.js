@@ -1,6 +1,6 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
-// const { use } = require("../routes/userRoutes");
+
 const registerUser = async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
 
@@ -34,7 +34,20 @@ const registerUser = async (req, res) => {
   }
 };
 
-const loginUser = async (req, res) => {};
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne({ email });
+
+    if (user && (await bcrypt.compareSync(password, user.password))) {
+      res.status(200).json({
+        emai: user.email,
+      });
+    }
+  } catch (err) {
+    res.status(400).json({ message: "login failed" });
+  }
+};
 
 const updateUser = (req, res) => {
   res.json({ message: "user updated" });
