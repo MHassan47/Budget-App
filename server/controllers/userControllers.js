@@ -1,11 +1,12 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const registerUser = async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, email, password, profilePicture } = req.body;
 
   try {
-    if (!firstName || !lastName || !email || !password) {
+    if (!firstName || !lastName || !email || !password || !profilePicture) {
       res.status(400).json({ message: "Please fill fields" });
     }
     const userExists = await User.findOne({ email });
@@ -19,6 +20,7 @@ const registerUser = async (req, res) => {
       lastName,
       email,
       password: hashedPassword,
+      profilePicture,
     });
     console.log(user);
     if (user) {
@@ -27,11 +29,18 @@ const registerUser = async (req, res) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        profile_picture: user.profilePicture,
       });
     }
   } catch (err) {
     res.send(400).json({ message: "failed" });
   }
+};
+
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "30d",
+  });
 };
 
 const loginUser = async (req, res) => {
@@ -43,15 +52,26 @@ const loginUser = async (req, res) => {
     const user = await User.findOne({ email });
 
     const comparePassword = bcrypt.compareSync(password, user.password);
-    console.log(comparePassword);
+
+    console.log(user);
     if (user && comparePassword) {
-      res.status(200).json(user);
+      res.status(200).json({
+        _id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        profilePicture: user.profilePicture,
+        token: generateToken(user._id),
+      });
     } else {
       res.status(400).json({ message: "incorrect credentials" });
     }
   } catch (err) {
-    res.status(400).json({ message: "login f" });
+    res.status(400).json({ message: "login failed" });
   }
+};
+
+const getMe = async (req, res) => {
+  res.status(200).json(req.user);
 };
 
 const updateUser = (req, res) => {
@@ -69,6 +89,7 @@ const deleteUser = (req, res) => {
 module.exports = {
   registerUser,
   loginUser,
+  getMe,
   updateUser,
   deleteUser,
 };
