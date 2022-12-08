@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import Button from "../Button";
 import { Navigate, useNavigate } from "react-router-dom";
-function LandingRight() {
+function LandingRight({ setFormType, formType }) {
   const navigate = useNavigate();
   return (
     <Grid
@@ -30,9 +30,9 @@ function LandingRight() {
         Enter with your personal details
       </Typography>
       <Button
-        text="Signup"
+        text={formType ? "Sign Up" : "Sign In"}
         propClassName={"secondary__btn"}
-        onClick={navigate("/signup")}
+        onClick={() => setFormType((prev) => !prev)}
       />
     </Grid>
   );
