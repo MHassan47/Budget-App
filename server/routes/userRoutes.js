@@ -1,14 +1,15 @@
 const express = require("express");
 const router = express.Router();
+
 const bcrypt = require("bcryptjs");
 const {
   registerUser,
   loginUser,
   updateUser,
   deleteUser,
-} = require("../controllers/userControllers.js");
+} = require("../controllers/userControllers");
 
-router.get("/", loginUser);
-router.post("/", registerUser);
+router.post("/login", loginUser);
+router.post("/register", registerUser);
 
 module.exports = router;
