@@ -1,9 +1,11 @@
 import Grid from "@mui/material/Grid";
-import React from "react";
+import React, { useState } from "react";
 import LandingRight from "../components/Landing/LandingRight";
 import Login from "../components/Landing/Login";
+import SignUp from "../components/Landing/SignUp";
 
 function Landing() {
+  const [isLogin, setIsLogin] = useState(true);
   return (
     <Grid
       container
@@ -14,10 +16,14 @@ function Landing() {
       flexDirection="row"
     >
       <Grid item md={8} justifyContent="center">
-        <Login />
+        {isLogin ? (
+          <Login formType={isLogin} />
+        ) : (
+          <SignUp formType={isLogin} setFormType={setIsLogin} />
+        )}
       </Grid>
       <Grid item md={4}>
-        <LandingRight />
+        <LandingRight setFormType={setIsLogin} formType={isLogin} />
       </Grid>
     </Grid>
   );
