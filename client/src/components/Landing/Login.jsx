@@ -6,7 +6,7 @@ import classes from "../Styles/Login.module.scss";
 import Button from "../Button";
 import axios from "axios";
 import { userContext } from "../../provider/userProvider";
-function Login() {
+function Login({ formType }) {
   const navigate = useNavigate();
   const { user, setUser } = useContext(userContext);
   const [firstName, setLirstName] = useState("");
