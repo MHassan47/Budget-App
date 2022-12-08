@@ -36,19 +36,21 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
+  // const email = req.body.email;
+  // const password = req.body.password;
+  console.log(email, password);
   try {
     const user = await User.findOne({ email });
+
     const comparePassword = bcrypt.compareSync(password, user.password);
     console.log(comparePassword);
     if (user && comparePassword) {
-      res.status(200).json({
-        emai: user.email,
-      });
+      res.status(200).json(user);
     } else {
       res.status(400).json({ message: "incorrect credentials" });
     }
   } catch (err) {
-    res.status(400).json({ message: "login failed" });
+    res.status(400).json({ message: "login f" });
   }
 };
 
