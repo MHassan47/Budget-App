@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  justify-content: center;
+  background-color: #4333a1;
+  height: 100vh;
+}
+
+ul {
+  margin-top: 20vh;
+}
+li {
+  display: flex;
+  font-size: 1.3rem;
+  column-gap: 2rem;
+  margin-bottom: 3.5rem;
+  cursor: pointer;
+  color: rgb(162, 162, 162);
+}
+
+li:hover {
+  transform: scale(1.15);
+  color: white;
+}
+
+#active {
+  color: green;
+  background-color: green;
+}
