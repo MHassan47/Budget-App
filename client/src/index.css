@@ -17,13 +17,6 @@ body,
   position: relative;
 }  */
 
-#root,
-.app {
-  /* margin: -8px; */
-  /* display: flex; */
-  /* height: 100vh; */
-}
-
 * {
   margin: 0;
   padding: 0;
