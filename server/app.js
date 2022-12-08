@@ -1,24 +1,21 @@
-const express = require("express");
 const dotenv = require("dotenv").config();
+const express = require("express");
 const port = process.env.PORT;
-const path = require("path");
-const logger = require("morgan");
+
 const app = express();
 const connectDB = require("./db");
 const bodyParser = require("body-parser");
 
 // Connect to Database
 connectDB();
+
 // Middleware
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, "public")));
+// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Separate routes
-const userRouter = require("./routes/userRoutes");
-const { connect } = require("http2");
+const userRoutes = require("./routes/userRoutes");
 
-app.use("/api/users", userRouter);
+app.use("/api/users", userRoutes);
 app.listen(port, () => console.log(`Server started on port ${port}`));
