@@ -15,6 +15,7 @@ function Login({ formType }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
 
+  console.log("--------------", user);
   // console.log(email);
   const handleSignIn = async (e) => {
     // e.preventDefault();
@@ -26,9 +27,14 @@ function Login({ formType }) {
       console.log(credentials);
       const response = await axios.post("/api/users/login", credentials);
       console.log(response.data);
-
-      setUser(response.data.user);
-      navigate("/dashboard");
+      if (response.data.hasOwnProperty("msg")) {
+        alert(response.data.msg);
+      } else {
+        localStorage.setItem("accessToken", response.data.token);
+        localStorage.setItem("login", true);
+        setUser(response.data.user);
+        navigate("/dashboard");
+      }
     } catch (err) {
       console.log("request error ---- ", err);
     }
