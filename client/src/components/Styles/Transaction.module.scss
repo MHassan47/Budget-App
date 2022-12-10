@@ -1,0 +1,39 @@
+.transaction__header {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.transaction__container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin-bottom: 1.4rem;
+  gap: 2rem;
+  font-weight: 600;
+}
+
+.transaction__icon {
+  display: flex;
+  justify-content: flex-start;
+  //   align-items: flex-start;
+  align-self: flex-start;
+}
+
+.transaction__name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.transaction__amount {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.transaction__time {
+  color: rgb(113, 111, 111);
+}
