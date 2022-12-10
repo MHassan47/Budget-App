@@ -7,14 +7,14 @@ const registerUser = async (req, res) => {
 
   try {
     if (!firstName || !lastName || !email || !password || !profilePicture) {
-      res.status(400).json({ message: "Please fill fields" });
+      res.send(401).json({ message: "Please fill fields" });
     }
     const userExists = await User.findOne({ email });
     if (userExists) {
-      res.status(400).json({ message: "user already exists" });
+      res.send(401).json({ message: "user already exists" });
     }
 
-    const hashedPassword = await bcrypt.hashSync(password, 10);
+    const hashedPassword = bcrypt.hashSync(password, 10);
     const user = await User.create({
       firstName,
       lastName,
@@ -33,7 +33,7 @@ const registerUser = async (req, res) => {
       });
     }
   } catch (err) {
-    res.send(400).json({ message: "failed" });
+    res.send(401).json({ message: "failed" });
   }
 };
 
@@ -71,7 +71,17 @@ const loginUser = async (req, res) => {
 };
 
 const getMe = async (req, res) => {
-  res.status(200).json(req.user);
+  try {
+    const user = await User.findById(req.user);
+    if (!user) {
+      return res.status(401).json({ message: "user not you" });
+    } else {
+      delete user.password;
+      res.status(200).json(user);
+    }
+  } catch (err) {
+    res.status(401).json({ message: err });
+  }
 };
 
 const updateUser = (req, res) => {
