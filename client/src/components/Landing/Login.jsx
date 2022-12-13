@@ -9,16 +9,14 @@ import { userContext } from "../../provider/userProvider";
 function Login({ formType }) {
   const navigate = useNavigate();
   const { user, setUser } = useContext(userContext);
-  const [firstName, setLirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
 
-  console.log("--------------", user);
   // console.log(email);
+  // useEffect(() => {
   const handleSignIn = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     const credentials = { email, password };
     if (!email || !password) {
       return setError(true);
@@ -39,6 +37,15 @@ function Login({ formType }) {
       console.log("request error ---- ", err);
     }
   };
+
+  // useEffect(() => {
+  //   console.log("user in login", user);
+  //   if (user) {
+  //     navigate("/dashboard");
+  //   }
+  // }, []);
+
+  console.log("--------------", user);
 
   return (
     <Grid
