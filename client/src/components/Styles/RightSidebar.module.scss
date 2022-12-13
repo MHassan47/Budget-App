@@ -1,16 +1,15 @@
 .profile_container {
   display: flex;
+  flex-direction: row;
   width: 18rem;
-  height: 18rem;
+  height: 7rem;
   margin-top: 5vh;
   border-radius: 12%;
   justify-content: center;
   align-content: center;
-  flex-direction: column;
-  background-color: #fdf3e6;
-}
 
-.user_name {
+  // flex-direction: column;
+  // background-color: #fdf3e6;
   font-size: 1.8rem;
   font-weight: 700;
 }
@@ -20,7 +19,9 @@
   color: rgb(164, 164, 164);
 }
 .pfp {
-  height: 8rem;
-  width: 8rem;
+  margin-right: 3rem;
+  margin-left: 1.5rem;
+  height: 3rem;
+  width: 3rem;
   border-radius: 100%;
 }
