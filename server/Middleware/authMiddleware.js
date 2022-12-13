@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
-const verifyJWT = async (req, res) => {
+const verifyJWT = async (req, res, next) => {
   const accessToken = req.headers["access-token"];
 
   if (!accessToken) {
@@ -13,9 +13,11 @@ const verifyJWT = async (req, res) => {
       console.log("invalid token", err);
       return res.status(401).json({ error: "invalid Token!" });
     }
+    req.user = decoded.id;
+    // console.log(req.user);
+    next();
   });
-  req.user = await User.findById(decoded.id).select("-password");
-  next();
+  //   req.user = await User.findById(decoded.id).select("-password");
 };
 
 module.exports = { verifyJWT };
