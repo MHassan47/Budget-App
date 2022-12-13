@@ -4,6 +4,7 @@ import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import CreditCardOutlinedIcon from "@mui/icons-material/CreditCardOutlined";
+import ReceiptSharpIcon from "@mui/icons-material/ReceiptSharp";
 
 export const SidebarData = [
   {
@@ -20,6 +21,11 @@ export const SidebarData = [
     title: "My Profile",
     icon: <PermIdentityOutlinedIcon />,
     link: "/profile",
+  },
+  {
+    title: "Transaction",
+    icon: <ReceiptSharpIcon />,
+    link: "/transaction",
   },
   {
     title: "Cards",
