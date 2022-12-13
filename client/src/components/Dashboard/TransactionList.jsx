@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import moment from "moment";
 import Grid from "@mui/material/Grid";
 import classes from "../Styles/Transaction.module.scss";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
@@ -14,8 +15,8 @@ function TransactionList() {
     const getAllTransactions = async () => {
       // setLoading(true);
       try {
-        const response = await axios.get("/api/transactions/");
-        console.log("TRANSACTION", response.data);
+        const response = await axios.get("/api/transactions/preview");
+
         setAllTransactions(response.data);
         setLoading(false);
         // console.log("---------", response);
@@ -24,9 +25,8 @@ function TransactionList() {
       }
     };
     getAllTransactions();
-  }, [loading]);
+  }, []);
 
-  console.log("niii", allTransactions);
   return (
     <Grid
       container
@@ -50,6 +50,7 @@ function TransactionList() {
         <Grid
           container
           direction="row"
+          justifyContent="space-around"
           key={item.amount}
           className={`${classes.transaction__container}`}
         >
@@ -72,7 +73,7 @@ function TransactionList() {
                   width: "38px",
                   height: "38px",
                   borderRadius: "100%",
-                  backgroundColor: "#1ADD4D ",
+                  backgroundColor: "rgba(75,192,192,1) ",
                   alignContent: "center",
                 }}
               />
@@ -90,19 +91,20 @@ function TransactionList() {
             )}
           </div>
           <div>
-            <div className={`${classes.transaction__type}`}>{item.type}</div>
+            <div className={`${classes.transaction__name}`}>{item.name}</div>
             <div className={`${classes.transaction__time}`}>
-              {new Date(item.createdAt).toISOString().substring(0, 10)}
+              {/* {new Date(item.createdAt).toISOString().substring(0, 10)} */}
+              {moment(new Date(item.createdAt)).fromNow()}
             </div>
           </div>
-          <div className={`${classes.transaction__name}`}>{item.name}</div>
+
           <div
             style={{
-              color: item.amount > 0 ? "green" : "red",
+              color: item.amount > 0 ? "rgba(75,192,192,1)" : "#ff8789",
             }}
             className={`${classes.transaction__amount}`}
           >
-            {item.amount}
+            ${item.amount}
           </div>
         </Grid>
       ))}
