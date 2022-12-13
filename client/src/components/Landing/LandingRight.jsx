@@ -8,7 +8,7 @@ function LandingRight({ setFormType, formType }) {
   return (
     <Grid
       container
-      style={{ backgroundColor: "#4333a1" }}
+      style={{ background: "linear-gradient(-20deg, #6756f5, #9859fe)" }}
       display="flex"
       flexDirection="column"
       justifyContent="center"
