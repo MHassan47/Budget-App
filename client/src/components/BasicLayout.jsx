@@ -8,10 +8,10 @@ function BasicLayout(props) {
       <Grid item md={1.6}>
         <Sidebar />
       </Grid>
-      <Grid item md={8.2}>
+      <Grid item md={6.8}>
         {props.children}
       </Grid>
-      <Grid item md={2.2}>
+      <Grid item md={3.6}>
         <RightSidebar />
       </Grid>
     </Grid>
