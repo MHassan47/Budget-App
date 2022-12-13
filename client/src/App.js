@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import SignUp from "./components/Landing/SignUp";
 
 import Cards from "./pages/Cards";
+import Transaction from "./pages/Transaction";
 
 function App() {
   const { user, setUser } = useContext(userContext);
@@ -53,6 +54,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/card" element={<Cards />} />
+        <Route path="/transaction" element={<Transaction />} />
         {/* <Route path="/settings" element={<Settings />} /> */}
       </Routes>
     </div>
