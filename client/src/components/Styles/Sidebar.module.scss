@@ -1,7 +1,9 @@
 .container {
   display: flex;
   justify-content: center;
-  background-color: #4333a1;
+  border-top-right-radius: 70px;
+  border-bottom-right-radius: 70px;
+  background: linear-gradient(50deg, #6756f5, #9859fe);
   height: 100vh;
 }
 
