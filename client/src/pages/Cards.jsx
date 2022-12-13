@@ -1,10 +1,11 @@
 import React from "react";
 import BasicLayout from "../components/BasicLayout";
-import TransactionForm from "../components/Transactions/TransactionForm";
+import CardForm from "../components/Dashboard/CardForm";
+
 function Cards() {
   return (
     <BasicLayout>
-      <TransactionForm />
+      <CardForm />
     </BasicLayout>
   );
 }
