@@ -6,7 +6,7 @@ import Cards from "react-credit-cards";
 import "react-credit-cards/lib/styles.scss";
 function Card({ number, name, expiry, cvc, focus }) {
   return (
-    <Grid style={{ marginTop: "8vh" }}>
+    <Grid>
       <Cards
         number={number}
         name={name}
