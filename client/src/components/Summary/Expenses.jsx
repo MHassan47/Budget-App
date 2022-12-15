@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
 import ProgressBar from "./ProgressBar";
+import Categories from "./Categories";
 function Expenses() {
   const [currentExpenses, setCurrentExpenses] = useState();
   const [loading, setLoading] = useState(true);
@@ -28,7 +29,7 @@ function Expenses() {
   }, []);
 
   return (
-    <Grid container item md={12} style={{}}>
+    <Grid container item md={12} display="row" justifyContent="space-around">
       {loading ? (
         <div>Loading</div>
       ) : (
@@ -36,6 +37,9 @@ function Expenses() {
           <ProgressBar currentExpenses={currentExpenses} />
         </Grid>
       )}
+      <Grid item md={4}>
+        <Categories />
+      </Grid>
     </Grid>
   );
 }
