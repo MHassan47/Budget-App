@@ -29,6 +29,7 @@ function SignUp({ formType, setFormType }) {
   // console.log(email);
   const handleSignUp = async (e) => {
     // e.preventDefault();
+    // ADD A PROFILE PICTURE INPUT
     const body = { firstName, lastName, email, password };
     if (!firstName || !lastName || !email || !password || !confirmPassword) {
       return setError("Field(s) cannot be empty!");
@@ -52,6 +53,13 @@ function SignUp({ formType, setFormType }) {
       setFormType(true);
     } catch (err) {
       console.log("request error ---- ", err);
+    }
+  };
+
+  const handleKeypress = (e) => {
+    //it triggers by pressing the enter key
+    if (e.keyCode === 13) {
+      handleSignUp();
     }
   };
 
@@ -143,6 +151,7 @@ function SignUp({ formType, setFormType }) {
           text="Sign Up"
           onClick={handleSignUp}
           propClassName={"main__btn"}
+          onKeyPress={handleKeypress}
         />
       </Grid>
     </Grid>
