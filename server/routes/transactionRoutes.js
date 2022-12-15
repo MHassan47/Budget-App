@@ -5,10 +5,12 @@ const {
   addTransaction,
   getPreviewTransactions,
   getAllTransactions,
+  getMonthlyTransactions,
 } = require("../controllers/transactionControllers");
 
 router.post("/add", verifyJWT, addTransaction);
 router.get("/preview", verifyJWT, getPreviewTransactions);
 router.get("/", verifyJWT, getAllTransactions);
+router.get("/monthly", verifyJWT, getMonthlyTransactions);
 
 module.exports = router;
