@@ -38,14 +38,20 @@ function Login({ formType }) {
     }
   };
 
+  const handleKeypress = (e) => {
+    //it triggers by pressing the enter key
+    console.log(e.keyCode);
+    if (e.keyCode === 13) {
+      handleSignIn();
+    }
+  };
+
   // useEffect(() => {
   //   console.log("user in login", user);
   //   if (user) {
   //     navigate("/dashboard");
   //   }
   // }, []);
-
-  console.log("--------------", user);
 
   return (
     <Grid
@@ -106,6 +112,7 @@ function Login({ formType }) {
           text="SIGN IN"
           onClick={handleSignIn}
           propClassName={"main__btn"}
+          onKeyPress={handleKeypress}
         />
       </Grid>
     </Grid>
