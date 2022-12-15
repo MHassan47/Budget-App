@@ -9,6 +9,10 @@ import SignUp from "./components/Landing/SignUp";
 
 import Cards from "./pages/Cards";
 import Transaction from "./pages/Transaction";
+import CalendarPage from "./pages/CalendarPage";
+import Settings from "./pages/Settings";
+import Profile from "./pages/Profile";
+import PrivateRoutes from "./components/PrivateRoutes";
 
 function App() {
   const { user, setUser } = useContext(userContext);
@@ -52,10 +56,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/card" element={<Cards />} />
-        <Route path="/transaction" element={<Transaction />} />
-        {/* <Route path="/settings" element={<Settings />} /> */}
+        <Route element={<PrivateRoutes />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/card" element={<Cards />} />
+          <Route path="/transaction" element={<Transaction />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/calendar" element={<CalendarPage />} />
+        </Route>
       </Routes>
     </div>
   );
