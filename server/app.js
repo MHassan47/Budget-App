@@ -18,8 +18,10 @@ app.use(bodyParser.json());
 const userRoutes = require("./routes/userRoutes");
 const cardRoutes = require("./routes/cardRoutes");
 const transactionRoutes = require("./routes/transactionRoutes");
+const calendarRoutes = require("./routes/calendarRoutes");
 
 app.use("/api/users", userRoutes);
 app.use("/api/cards", cardRoutes);
 app.use("/api/transactions", transactionRoutes);
+app.use("/api/calendar", calendarRoutes);
 app.listen(port, () => console.log(`Server started on port ${port}`));
