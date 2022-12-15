@@ -2,7 +2,9 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 import { SidebarData } from "./SidebarData";
 import classes from "../Styles/Sidebar.module.scss";
+import { useNavigate } from "react-router-dom";
 function Sidebar() {
+  const navigate = useNavigate();
   return (
     <Grid
       // direction="column"
@@ -18,7 +20,7 @@ function Sidebar() {
               className="row"
               id={window.location.pathname === val.link ? "active" : ""}
               onClick={() => {
-                window.location.pathname = val.link;
+                navigate(val.link);
               }}
             >
               <div className={`${classes.icons}`}>{val.icon}</div>{" "}

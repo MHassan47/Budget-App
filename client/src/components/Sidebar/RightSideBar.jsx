@@ -35,7 +35,6 @@ function RightSideBar() {
     getPrimaryCard();
   }, []);
 
-  console.log(user);
   return (
     // user && (
     <Grid
