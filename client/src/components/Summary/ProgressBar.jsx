@@ -11,7 +11,7 @@ function ProgressBar({ currentExpenses }) {
   const percentage = Math.round((currentExpenses / budget) * 100);
 
   return (
-    <Grid style={{ width: "14rem", height: "14rem", marginLeft: "2rem" }}>
+    <Grid style={{ width: "14rem", height: "14rem" }}>
       <CircularProgressbarWithChildren
         value={percentage}
         text={`${percentage}%`}
