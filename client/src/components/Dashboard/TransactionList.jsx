@@ -33,18 +33,23 @@ function TransactionList() {
       item
       display="flex"
       direction="column"
-      //   justifyContent="center"
+      // justifyContent="center"
       //   alignContent="center"
       style={{ fontSize: "1.2rem" }}
     >
-      <Grid
-        item
-        justifyContent="center"
-        alignContent="center"
-        style={{ fontSize: "2.1rem", fontWeight: "700", color: "black" }}
-        className={`${classes.transaction__header}`}
-      >
-        Payment History
+      <Grid container display="flex" justifyContent="space-around">
+        <Grid
+          item
+          justifyContent="center"
+          alignContent="center"
+          style={{ fontSize: "2.1rem", fontWeight: "700", color: "black" }}
+          className={`${classes.transaction__header}`}
+        >
+          Payment History
+        </Grid>
+        <Grid item justifyContent="flex-end">
+          <a href="/transaction">see all</a>
+        </Grid>
       </Grid>
       {allTransactions.map((item) => (
         <Grid
@@ -59,10 +64,11 @@ function TransactionList() {
               <ShoppingBagOutlinedIcon
                 style={{
                   fontSize: "10px",
-                  width: "38px",
-                  height: "38px",
-                  borderRadius: "100%",
-                  backgroundColor: "#ff8789",
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "20%",
+                  backgroundColor: "white",
+                  color: "#3a2261",
                   alignContent: "center",
                 }}
               />
@@ -80,10 +86,11 @@ function TransactionList() {
             ) : (
               <AccountBalanceIcon
                 style={{
-                  fontSize: "15px",
+                  fontSize: "10px",
                   width: "38px",
                   height: "38px",
-                  borderRadius: "100%",
+                  color: "#3a2261",
+                  borderRadius: "20%",
                   backgroundColor: "white",
                   alignContent: "center",
                 }}
