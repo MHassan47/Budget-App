@@ -21,10 +21,10 @@ const addCard = async (req, res) => {
 
 const getPrimaryCard = async (req, res) => {
   const user_id = req.user;
-  console.log(":::", user_id);
+
   try {
     const primaryCard = await Card.find({ user: user_id });
-    console.log("....", primaryCard);
+
     res.json(primaryCard);
   } catch (err) {
     res.status(401).json({ message: err });
