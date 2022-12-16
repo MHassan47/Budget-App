@@ -1,21 +1,35 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { register, reset } from "../../features/user/userSlice";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import classes from "../Styles/Login.module.scss";
 import Button from "../Button";
-import axios from "axios";
-import { userContext } from "../../provider/userProvider";
 
 function SignUp({ formType, setFormType }) {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(userContext);
+  const dispatch = useDispatch();
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const profilePicture =
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80";
+  useEffect(() => {
+    if (isError) {
+      alert(message);
+    }
+    if (isSuccess) {
+      navigate("/dashboard");
+    }
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const validPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,20}$/;
 
@@ -26,11 +40,10 @@ function SignUp({ formType, setFormType }) {
     return false;
   };
 
-  // console.log(email);
   const handleSignUp = async (e) => {
     // e.preventDefault();
     // ADD A PROFILE PICTURE INPUT
-    const body = { firstName, lastName, email, password };
+    const body = { firstName, lastName, email, password, profilePicture };
     if (!firstName || !lastName || !email || !password || !confirmPassword) {
       return setError("Field(s) cannot be empty!");
     }
@@ -46,14 +59,7 @@ function SignUp({ formType, setFormType }) {
     if (!validateEmail(email)) {
       return setError("Email must be valid");
     }
-    try {
-      const response = await axios.post("/api/users/register", body);
-      console.log(response.data);
-
-      setFormType(true);
-    } catch (err) {
-      console.log("request error ---- ", err);
-    }
+    dispatch(register(body));
   };
 
   const handleKeypress = (e) => {

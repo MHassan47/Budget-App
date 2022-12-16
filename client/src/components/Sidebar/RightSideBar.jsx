@@ -1,33 +1,29 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
 import classes from "../Styles/RightSidebar.module.scss";
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
-import { userContext } from "../../provider/userProvider";
+
 import TransactionList from "../Dashboard/TransactionList";
 import Card from "../Dashboard/Card";
 import TransactionForm from "../Dashboard/TransactionForm";
 import DropDown from "./DropDown";
 
 function RightSideBar() {
-  const { user } = useContext(userContext);
+  const { user } = useSelector((state) => state.auth);
 
   const [primaryCard, setPrimarCard] = useState({});
 
   const [loading, setLoading] = useState(true);
-  // const { data, loading, error } = useFetch("/api/cards/primary");
-  // console.log("DATA", data);
-  // setPrimarCard(...data);
 
   useEffect(() => {
     const getPrimaryCard = async () => {
-      // setLoading(true);
       try {
         const response = await axios.get("/api/cards/primary");
-        // console.log("...", response.data);
+
         setPrimarCard(...response.data);
         setLoading(false);
-        // console.log("---------", response);
       } catch (err) {
         console.log(err);
       }
@@ -36,11 +32,10 @@ function RightSideBar() {
   }, []);
 
   return (
-    // user && (
     <Grid
       display="flex"
       container
-      // alignContent="center"
+      alignContent="space-between"
       justifyContent="center"
       item
       md={12}
@@ -52,9 +47,6 @@ function RightSideBar() {
         paddingLeft: "1rem",
       }}
     >
-      {/* <Grid container md={12} direction="row"> */}
-      {/* <Grid item className={`${classes.user_name}`}></Grid> */}
-
       <Grid
         container
         direction="row"
@@ -67,9 +59,7 @@ function RightSideBar() {
         <DropDown />
       </Grid>
 
-      {loading ? (
-        <div>Please wait for data</div>
-      ) : (
+      {!loading && primaryCard ? (
         <Card
           number={primaryCard.number}
           name={primaryCard.name}
@@ -77,13 +67,14 @@ function RightSideBar() {
           cvc={primaryCard.cvc}
           // preview={false}
         />
+      ) : (
+        <></>
       )}
       {/* </Grid> */}
       <TransactionList />
       <TransactionForm />
     </Grid>
   );
-  // );
 }
 
 export default RightSideBar;

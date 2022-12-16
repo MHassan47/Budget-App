@@ -1,41 +1,39 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { login, reset } from "../../features/user/userSlice";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import classes from "../Styles/Login.module.scss";
 import Button from "../Button";
-import axios from "axios";
-import { userContext } from "../../provider/userProvider";
+
 function Login({ formType }) {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(userContext);
+  const dispatch = useDispatch();
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
 
-  // console.log(email);
-  // useEffect(() => {
+  useEffect(() => {
+    if (isError) {
+      alert(message);
+    }
+    if (isSuccess) {
+      navigate("/dashboard");
+    }
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+
   const handleSignIn = async (e) => {
     e.preventDefault();
     const credentials = { email, password };
     if (!email || !password) {
       return setError(true);
     }
-    try {
-      console.log(credentials);
-      const response = await axios.post("/api/users/login", credentials);
-      console.log(response.data);
-      if (response.data.hasOwnProperty("msg")) {
-        alert(response.data.msg);
-      } else {
-        localStorage.setItem("accessToken", response.data.token);
-        localStorage.setItem("login", true);
-        setUser(response.data.user);
-        navigate("/dashboard");
-      }
-    } catch (err) {
-      console.log("request error ---- ", err);
-    }
+    dispatch(login(credentials));
   };
 
   const handleKeypress = (e) => {
@@ -45,13 +43,6 @@ function Login({ formType }) {
       handleSignIn();
     }
   };
-
-  // useEffect(() => {
-  //   console.log("user in login", user);
-  //   if (user) {
-  //     navigate("/dashboard");
-  //   }
-  // }, []);
 
   return (
     <Grid

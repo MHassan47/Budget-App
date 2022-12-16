@@ -3,29 +3,34 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import moment from "moment";
 import Grid from "@mui/material/Grid";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  getTransactions,
+  reset,
+} from "../../features/transactions/transactionSlice";
 import classes from "../Styles/Transaction.module.scss";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 
 function TransactionList() {
-  const [allTransactions, setAllTransactions] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [transactionsPreview, setTransactionsPreview] = useState([]);
+  const { transactions, isLoading } = useSelector(
+    (state) => state.transactions
+  );
+
   useEffect(() => {
     const getAllTransactions = async () => {
-      // setLoading(true);
       try {
         const response = await axios.get("/api/transactions/preview");
 
-        setAllTransactions(response.data);
-        setLoading(false);
-        // console.log("---------", response);
+        setTransactionsPreview(response.data);
       } catch (err) {
         console.log(err);
       }
     };
     getAllTransactions();
-  }, []);
+  }, [transactions]);
 
   return (
     <Grid
@@ -51,7 +56,7 @@ function TransactionList() {
           <a href="/transaction">see all</a>
         </Grid>
       </Grid>
-      {allTransactions.map((item) => (
+      {transactionsPreview.map((item) => (
         <Grid
           container
           direction="row"
