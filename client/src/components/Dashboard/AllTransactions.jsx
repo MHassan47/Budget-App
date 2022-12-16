@@ -1,29 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Box, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import { useSelector } from "react-redux";
+
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 
 function AllTransactions() {
-  const [allTransactions, setAllTransactions] = useState([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const getAllTransactions = async () => {
-      // setLoading(true);
-      try {
-        const response = await axios.get("/api/transactions/");
-
-        setAllTransactions(response.data);
-        setLoading(false);
-        // console.log("---------", response);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getAllTransactions();
-  }, []);
+  const { transactions, isLoading, isError, isSuccess } = useSelector(
+    (state) => state.transactions
+  );
 
   const columns = [
     { field: "_id", headerName: "ID" },
@@ -39,13 +27,13 @@ function AllTransactions() {
       field: "category",
       headerName: "Category",
       headerAlign: "left",
-      //   flex: 1,
+
       align: "left",
     },
     {
       field: "name",
       headerName: "Name",
-      //   flex: ,
+
       align: "center",
       cellClassName: "name-column--cell",
     },
@@ -91,7 +79,7 @@ function AllTransactions() {
       >
         <DataGrid
           checkboxSelection
-          rows={allTransactions}
+          rows={transactions}
           getRowId={(row) => row._id}
           columns={columns}
         />

@@ -2,22 +2,22 @@ import React from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
+import { useSelector } from "react-redux";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import { useState } from "react";
 
 function IncomeChart() {
+  const { transactions, isLoading, isError, isSuccess } = useSelector(
+    (state) => state.transactions
+  );
   const [monthlyExpenses, setMonthlyExpenses] = useState([]);
   useEffect(() => {
     const getMonthlyIncome = async () => {
-      // setLoading(true);
       try {
         const response = await axios.get("/api/transactions/monthly");
 
         setMonthlyExpenses(response.data);
-        // setLoading(false);
-
-        // const getData = await response.data.map((transaction) =>
 
         // );
       } catch (err) {
@@ -25,7 +25,7 @@ function IncomeChart() {
       }
     };
     getMonthlyIncome();
-  }, []);
+  }, [transactions, isLoading, isError, isSuccess]);
 
   const expensesData = {};
   const incomeData = {};
