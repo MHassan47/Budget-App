@@ -7,11 +7,11 @@ const registerUser = async (req, res) => {
 
   try {
     if (!firstName || !lastName || !email || !password || !profilePicture) {
-      res.send(401).json({ message: "Please fill fields" });
+      return res.statusstatus(401).json({ message: "Please fill fields" });
     }
     const userExists = await User.findOne({ email });
     if (userExists) {
-      res.send(401).json({ message: "user already exists" });
+      return res.status(401).json({ message: "user already exists" });
     }
 
     const hashedPassword = bcrypt.hashSync(password, 10);
@@ -24,16 +24,17 @@ const registerUser = async (req, res) => {
     });
     console.log(user);
     if (user) {
-      res.send(201).json({
+      res.status(200).json({
         _id: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
         profile_picture: user.profilePicture,
+        token: generateToken(user._id),
       });
     }
   } catch (err) {
-    res.send(401).json({ message: "failed" });
+    res.status(401).json({ message: "failed" });
   }
 };
 
