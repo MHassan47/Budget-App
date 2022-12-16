@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import Button from "../Button";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  createTransactions,
+  reset,
+} from "../../features/transactions/transactionSlice";
 import { useNavigate } from "react-router-dom";
 import classes from "../Styles/Transaction.module.scss";
 
 function TransactionForm() {
+  const { transactions, isError, isSuccess, isLoading, message } = useSelector(
+    (state) => state.transactions
+  );
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [type, setType] = useState("");
   const [category, setCategory] = useState("");
@@ -37,14 +47,11 @@ function TransactionForm() {
     }
     const body = { type, category, name, amount };
     console.log({ amount });
-    try {
-      const response = await axios.post("/api/transactions/add", body);
-      // navigate("/transaction");
-
-      console.log(response);
-    } catch (err) {
-      console.log(err);
-    }
+    dispatch(createTransactions(body));
+    setType("");
+    setCategory("");
+    setName("");
+    setAmount("");
   };
 
   return (
@@ -59,6 +66,7 @@ function TransactionForm() {
         boxShadow: "5px 5px 18px rgba(60, 64, 67, 0.1)",
         borderRadius: "30px",
         padding: "0.5rem",
+        marginBottom: "1rem",
       }}
     >
       <Grid
