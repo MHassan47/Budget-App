@@ -6,7 +6,7 @@ import {
   reset,
 } from "../../features/transactions/transactionSlice";
 import axios from "axios";
-import { transactionContext } from "../../provider/transactionProvider";
+
 import { Grid } from "@mui/material";
 function Categories() {
   const { transactions } = useSelector((state) => state.transactions);
