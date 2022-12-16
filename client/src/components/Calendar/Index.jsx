@@ -1,117 +1,105 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import FullCalendar, { formatDate } from "@fullcalendar/react";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { Box, List, ListItem, ListItemText, Typography } from "@mui/material";
+import CalendarModal from "./CalendarModal";
+import moment from "moment";
+import axios from "axios";
+import Button from "../Button";
 
 function Calendar() {
   const [currentEvents, setCurrentEvents] = useState([]);
+  const [events, setEvents] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  const calendarRef = useRef(null);
 
   const onSubmit = (e) => {
     e.preventDefault();
   };
 
-  const handleDateClick = (selected) => {
-    console.log(selected);
-    const title = prompt("Please enter a new title for your event");
-    const calendarApi = selected.view.calendar;
-    calendarApi.unselect();
-
-    if (title) {
-      calendarApi.addEvent({
-        id: `${selected.dateStr}-${title}`,
-        title,
-        start: selected.startStr,
-        end: selected.endStr,
-        allDay: selected.allDay,
-      });
-    }
+  const onEventAdded = (event) => {
+    let calendarApi = calendarRef.current.getApi();
+    // const calendarApi = selected.view.calendar;
+    // console.log({
+    //   // type: event.type,
+    //   title: event.title,
+    //   start: moment(event.startDate).toDate(),
+    //   end: moment(event.endDate).toDate(),
+    // });
+    calendarApi.addEvent({
+      // type: event.type,
+      title: event.title,
+      start: moment(event.startDate).toDate(),
+      end: moment(event.endDate).toDate(),
+    });
   };
 
-  const handleEventClick = (selected) => {
-    if (
-      window.confirm(
-        `Are you sure you want to delete the event '${selected.event.title}'`
-      )
-    ) {
-      selected.event.remove();
-    }
+  const handleEventAdd = async (data) => {
+    console.log(data.event);
+    const response = await axios.post("/api/calendar/add", data.event);
+    console.log(response);
+    // setCurrentEvents(response.data);
   };
+
+  const handleDateSet = async (data) => {
+    const response = await axios.get("/api/calendar/");
+    console.log(response.data);
+    setEvents(response.data);
+  };
+  // const handleEventClick = (selected) => {
+  //   if (
+  //     window.confirm(
+  //       `Are you sure you want to delete the event '${selected.event.title}'`
+  //     )
+  //   ) {
+  //     selected.event.remove();
+  //   }
+  // };
 
   return (
     <Box m="20px">
-      {/* <Header title="Calendar" subtitle="Full Calendar Interactive Page" /> */}
+      <Button
+        text="Create Event"
+        onClick={() => setOpenModal((prev) => !prev)}
+        propClassName={"main__btn"}
+      />
 
-      <Box display="flex" justifyContent="space-between">
-        {/* CALENDAR SIDEBAR */}
-        {/* <Box flex="1 1 20%" backgroundColor="green" p="15px" borderRadius="4px">
-          <Typography variant="h5">Events</Typography>
-          <List>
-            {currentEvents.map((event) => (
-              <ListItem
-                key={event.id}
-                sx={{
-                  backgroundColor: "green",
-                  margin: "10px 0",
-                  borderRadius: "2px",
-                }}
-              >
-                <ListItemText
-                  primary={event.title}
-                  secondary={
-                    <Typography>
-                      {formatDate(event.start, {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      })}
-                    </Typography>
-                  }
-                />
-              </ListItem>
-            ))}
-          </List>
-        </Box> */}
-
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        style={{ position: "relative", zIndex: "0" }}
+      >
         {/* CALENDAR */}
         <Box flex="1 1 100%" ml="15px" mt="5rem">
           <FullCalendar
             height="75vh"
+            eventAdd={(event) => handleEventAdd(event)}
+            datesSet={(date) => handleDateSet(date)}
             plugins={[
               dayGridPlugin,
               // timeGridPlugin,
-              interactionPlugin,
-              listPlugin,
+              // interactionPlugin,
+              // listPlugin,
             ]}
             headerToolbar={{
               left: "prev,next today",
               right: "title",
               // right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
             }}
-            // initialView="dayGridMonth"
-            // editable={true}
-            selectable={true}
-            selectMirror={true}
-            dayMaxEvents={true}
-            select={handleDateClick}
-            eventClick={handleEventClick}
-            eventsSet={(events) => setCurrentEvents(events)}
-            // initialEvents={[
-            //   {
-            //     id: "12315",
-            //     title: "All-day event",
-            //     date: "2022-09-14",
-            //   },
-            //   {
-            //     id: "5123",
-            //     title: "Timed event",
-            //     date: "2022-09-28",
-            //   },
-            // ]}
+            events={events}
+            ref={calendarRef}
           />
         </Box>
       </Box>
+      {openModal && (
+        <CalendarModal
+          isOpen={openModal}
+          onClose={() => setOpenModal(false)}
+          onEventAdded={(event) => onEventAdded(event)}
+        />
+      )}
     </Box>
   );
 }
