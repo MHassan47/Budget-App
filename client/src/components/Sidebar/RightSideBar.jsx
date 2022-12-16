@@ -8,7 +8,6 @@ import axios from "axios";
 import TransactionList from "../Dashboard/TransactionList";
 import Card from "../Dashboard/Card";
 import TransactionForm from "../Dashboard/TransactionForm";
-import DropDown from "./DropDown";
 
 function RightSideBar() {
   const { user } = useSelector((state) => state.auth);
@@ -56,7 +55,6 @@ function RightSideBar() {
       >
         {user?.firstName} {user?.lastName}
         <img className={`${classes.pfp}`} src={user.profilePicture} alt="pfp" />
-        <DropDown />
       </Grid>
 
       {!loading && primaryCard ? (
