@@ -31,3 +31,19 @@ li:hover {
   color: green;
   background-color: green;
 }
+
+.logout_btn {
+  display: flex;
+  font-size: 1.3rem;
+  column-gap: 2rem;
+  border: none;
+  margin-bottom: 3.5rem;
+  cursor: pointer;
+  color: rgb(162, 162, 162);
+  background-color: transparent;
+}
+
+.logout_btn:hover {
+  transform: scale(1.15);
+  color: white;
+}
