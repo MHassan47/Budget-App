@@ -4,7 +4,7 @@ const { verifyJWT } = require("../Middleware/authMiddleware");
 const { addEvent, getEvent } = require("../controllers/calendarControllers");
 
 router.post("/add", verifyJWT, addEvent);
-router.get("/get", verifyJWT, getEvent);
+router.get("/", verifyJWT, getEvent);
 // router.get("/", verifyJWT, getAllCard);
 
 module.exports = router;

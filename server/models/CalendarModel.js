@@ -7,19 +7,15 @@ const calendarSchema = mongoose.Schema(
       required: true,
       ref: "User",
     },
-    type: {
-      type: String,
-      required: true,
-    },
+    // type: {
+    //   type: String,
+    //   required: true,
+    // },
     title: {
       type: String,
       required: true,
     },
     start: {
-      type: Date,
-      required: true,
-    },
-    end: {
       type: Date,
       required: true,
     },
