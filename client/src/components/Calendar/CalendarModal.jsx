@@ -1,7 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { Grid } from "@mui/material";
-import Datetime from "react-datetime";
-import "react-datetime/css/react-datetime.css";
 import Button from "../Button";
 import classes from "../Styles/Transaction.module.scss";
 function CalendarModal({ isOpen, onClose, onEventAdded }) {
@@ -105,14 +103,7 @@ function CalendarModal({ isOpen, onClose, onEventAdded }) {
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
           />
-          {/* <Datetime
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-          />
-          <Datetime
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-          /> */}
+
           <Button
             text="COMPLETE"
             onClick={onSubmit}
