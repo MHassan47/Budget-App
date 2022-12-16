@@ -1,28 +1,18 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  getTransactions,
+  reset,
+} from "../../features/transactions/transactionSlice";
 import axios from "axios";
+import { transactionContext } from "../../provider/transactionProvider";
 import { Grid } from "@mui/material";
 function Categories() {
-  const [allTransactions, setAllTransactions] = useState([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const getAllTransactions = async () => {
-      // setLoading(true);
-      try {
-        const response = await axios.get("/api/transactions/");
-
-        setAllTransactions(response.data);
-        setLoading(false);
-        // console.log("---------", response);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getAllTransactions();
-  }, []);
+  const { transactions } = useSelector((state) => state.transactions);
 
   const categoryData = {};
-  allTransactions.map((transaction) => {
+  transactions?.map((transaction) => {
     if (transaction.type === "purchase")
       if (!categoryData[transaction.category]) {
         categoryData[transaction.category] = transaction.amount;
