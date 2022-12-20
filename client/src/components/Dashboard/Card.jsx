@@ -12,8 +12,8 @@ function Card({ number, name, expiry, cvc, focus }) {
         name={name}
         expiry={expiry}
         cvc={cvc}
-        // preview={false}
-        // focused={focus}
+        preview={false}
+        focused={focus}
       />
     </Grid>
   );
