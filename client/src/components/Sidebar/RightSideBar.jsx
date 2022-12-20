@@ -8,6 +8,7 @@ import axios from "axios";
 import TransactionList from "../Dashboard/TransactionList";
 import Card from "../Dashboard/Card";
 import TransactionForm from "../Dashboard/TransactionForm";
+import AddCard from "./AddCard";
 
 function RightSideBar() {
   const { user } = useSelector((state) => state.auth);
@@ -66,7 +67,7 @@ function RightSideBar() {
           // preview={false}
         />
       ) : (
-        <></>
+        <AddCard />
       )}
       {/* </Grid> */}
       <TransactionList />
