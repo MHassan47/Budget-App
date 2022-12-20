@@ -48,15 +48,17 @@ function Calendar() {
     console.log(response.data);
     setEvents(response.data);
   };
-  // const handleEventClick = (selected) => {
-  //   if (
-  //     window.confirm(
-  //       `Are you sure you want to delete the event '${selected.event.title}'`
-  //     )
-  //   ) {
-  //     selected.event.remove();
-  //   }
-  // };
+  const handleEventClick = async (selected) => {
+    const eventID = selected.event._def.extendedProps._id;
+    if (
+      window.confirm(
+        `Are you sure you want to delete the event '${selected.event.title}'`
+      )
+    ) {
+      await axios.delete(`/api/calendar/delete/${eventID}`);
+      selected.event.remove();
+    }
+  };
 
   return (
     <Box m="20px">
@@ -75,8 +77,6 @@ function Calendar() {
         <Box flex="1 1 100%" ml="15px" mt="5rem">
           <FullCalendar
             height="75vh"
-            eventAdd={(event) => handleEventAdd(event)}
-            datesSet={(date) => handleDateSet(date)}
             plugins={[
               dayGridPlugin,
               // timeGridPlugin,
@@ -88,6 +88,9 @@ function Calendar() {
               right: "title",
               // right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
             }}
+            eventAdd={(event) => handleEventAdd(event)}
+            datesSet={(date) => handleDateSet(date)}
+            eventClick={(event) => handleEventClick(event)}
             events={events}
             ref={calendarRef}
           />
