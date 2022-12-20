@@ -2,7 +2,6 @@ const Calendar = require("../models/CalendarModel");
 
 const addEvent = async (req, res) => {
   const { title, start } = req.body;
-  console.log(req.body);
   const user_id = req.user;
   try {
     const newEvent = await Calendar.create({
@@ -22,8 +21,20 @@ const getEvent = async (req, res) => {
 
   try {
     const Events = await Calendar.find({ user: user_id });
-    console.log(Events);
+
     res.json(Events);
+  } catch (err) {
+    res.status(401).json({ message: err });
+  }
+};
+
+const deleteEvent = async (req, res) => {
+  // console.log(req.params.id);
+
+  try {
+    const event = await Calendar.findById({ _id: req.params.id });
+    await event.remove();
+    res.json({ message: "done" });
   } catch (err) {
     res.status(401).json({ message: err });
   }
@@ -32,4 +43,5 @@ const getEvent = async (req, res) => {
 module.exports = {
   addEvent,
   getEvent,
+  deleteEvent,
 };
