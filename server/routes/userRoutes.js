@@ -13,4 +13,5 @@ const {
 router.post("/login", loginUser);
 router.post("/register", registerUser);
 router.get("/me", verifyJWT, getMe);
+router.put("/update", verifyJWT, updateUser);
 module.exports = router;
