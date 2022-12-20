@@ -1,19 +1,18 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import Grid from "@mui/material/Grid";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  getTransactions,
-  reset,
-} from "../../features/transactions/transactionSlice";
+import { useSelector } from "react-redux";
+
 import classes from "../Styles/Transaction.module.scss";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 
 function TransactionList() {
+  const navigate = useNavigate();
   const [transactionsPreview, setTransactionsPreview] = useState([]);
   const { transactions, isLoading } = useSelector(
     (state) => state.transactions
@@ -38,8 +37,6 @@ function TransactionList() {
       item
       display="flex"
       direction="column"
-      // justifyContent="center"
-      //   alignContent="center"
       style={{ fontSize: "1.2rem" }}
     >
       <Grid container display="flex" justifyContent="space-around">
@@ -105,7 +102,6 @@ function TransactionList() {
           <div>
             <div className={`${classes.transaction__name}`}>{item.name}</div>
             <div className={`${classes.transaction__time}`}>
-              {/* {new Date(item.createdAt).toISOString().substring(0, 10)} */}
               {moment(new Date(item.createdAt)).fromNow()}
             </div>
           </div>
