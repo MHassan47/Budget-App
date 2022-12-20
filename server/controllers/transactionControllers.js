@@ -14,7 +14,7 @@ const addTransaction = async (req, res) => {
       name,
       amount,
     });
-    console.log(newTransaction);
+
     res.status(200).json(newTransaction);
   } catch (err) {
     res.json({ message: err });
@@ -49,7 +49,6 @@ const getAllTransactions = async (req, res) => {
 
 const getMonthlyTransactions = async (req, res) => {
   const user_id = req.user;
-  console.log(user_id);
   try {
     const monthlyTransactions = await Transaction.aggregate([
       {
@@ -72,7 +71,6 @@ const getMonthlyTransactions = async (req, res) => {
       },
     ]);
 
-    console.log(monthlyTransactions);
     res.status(200).json(monthlyTransactions);
   } catch (err) {
     res.status(401).json({ message: err });
