@@ -42,6 +42,7 @@ function CardForm() {
           <input
             type="tel"
             name="number"
+            maxLength="16"
             placeholder="Card Number"
             value={number}
             onChange={(e) => setNumber(e.target.value)}
