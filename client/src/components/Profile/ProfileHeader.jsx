@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid";
 import classes from "../Styles/Profile.module.scss";
 import { useSelector } from "react-redux";
 import ProfileTabs from "./ProfileTabs";
+import { Avatar } from "@mui/material";
 function ProfileHeader() {
   const { user } = useSelector((state) => state.auth);
   return (
@@ -11,7 +12,12 @@ function ProfileHeader() {
       {/* <Grid item md={1}></Grid> */}
       <Grid item className={classes.banner}></Grid>
       <Grid container item direction="row" alignItems="center">
-        <img className={classes.pfp} src={user.profilePicture} alt="pfp" />
+        <Avatar
+          style={{ height: "10rem", width: "10rem" }}
+          className={classes.pfp}
+          src={user.profilePicture}
+          alt="pfp"
+        />
         <Grid
           item
           style={{
