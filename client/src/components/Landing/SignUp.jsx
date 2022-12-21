@@ -19,8 +19,9 @@ function SignUp({ formType, setFormType }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [profilePicture, setProfilePicture] = useState("");
   const [error, setError] = useState("");
+  // const profilePicture =
+  //   "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80";
   useEffect(() => {
     if (isError) {
       alert(message);
@@ -42,15 +43,8 @@ function SignUp({ formType, setFormType }) {
   const handleSignUp = async (e) => {
     // e.preventDefault();
     // ADD A PROFILE PICTURE INPUT
-    const body = { firstName, lastName, email, password, profilePicture };
-    if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !password ||
-      !confirmPassword ||
-      !profilePicture
-    ) {
+    const body = { firstName, lastName, email, password };
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
       return setError("Field(s) cannot be empty!");
     }
 
@@ -75,7 +69,6 @@ function SignUp({ formType, setFormType }) {
     }
   };
 
-  console.log(profilePicture);
   return (
     <Grid
       container
@@ -158,30 +151,6 @@ function SignUp({ formType, setFormType }) {
           placeholder="Confirm Password"
           className={`${classes.input__box}`}
         />
-        <input
-          type="file"
-          accept="/image/*"
-          name="file"
-          multiple
-          onChange={(e) => {
-            const file = e.target.files[0];
-            if (file && file.type.substring(0, 5) === "image") {
-              setProfilePicture(file);
-            } else {
-              setProfilePicture(null);
-            }
-          }}
-          required={true}
-          // placeholder="Confirm Password"
-          className={`${classes.input__box}`}
-        />
-      </Grid>
-      <Grid item>
-        {profilePicture && (
-          <Grid item>
-            <img src={URL.createObjectURL(profilePicture)} alt="not found" />
-          </Grid>
-        )}
       </Grid>
       <Grid display="flex" justifyContent="center" alignContent="center">
         <Button
