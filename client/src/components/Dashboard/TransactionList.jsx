@@ -4,15 +4,18 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import Grid from "@mui/material/Grid";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
 import classes from "../Styles/Transaction.module.scss";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import EditIcon from "@mui/icons-material/Edit";
+import { deleteTransaction } from "../../features/transactions/transactionSlice";
 
 function TransactionList() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [transactionsPreview, setTransactionsPreview] = useState([]);
   const { transactions, isLoading } = useSelector(
     (state) => state.transactions
@@ -30,6 +33,14 @@ function TransactionList() {
     };
     getAllTransactions();
   }, [transactions]);
+
+  const handleDelete = (id) => {
+    console.log(id);
+    console.log(`test ${id}`);
+    dispatch(deleteTransaction(id));
+  };
+
+  // const handleEdit = async () => {};
 
   return (
     <Grid
@@ -113,6 +124,10 @@ function TransactionList() {
             className={`${classes.transaction__amount}`}
           >
             ${item.amount}
+          </div>
+          <div className={`${classes.item_icons}`}>
+            <DeleteOutlineIcon onClick={() => handleDelete(item._id)} />
+            {/* <EditIcon onClick={handleEdit} /> */}
           </div>
         </Grid>
       ))}
