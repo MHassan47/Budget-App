@@ -2,6 +2,15 @@
 
 A budgeting app that allows users to securely track their finances at a glance using wonderful visual libraries that make viewing data simple
 
+![The landing page!](https://github.com/MHassan47/Budget-App/blob/master/client/src/assets/budget_landing.JPG?raw=true)
+
+![The dashboard!](https://github.com/MHassan47/Budget-App/blob/master/client/src/assets/budget_dashboard.JPG?raw=true)
+
+![The Calendar Page!](https://github.com/MHassan47/Budget-App/blob/master/client/src/assets/budget_calendar.JPG?raw=true)
+![The Calendar modal!](https://github.com/MHassan47/Budget-App/blob/master/client/src/assets/budget_calendar_modal.JPG?raw=true)
+![The transaction Page!](https://github.com/MHassan47/Budget-App/blob/master/client/src/assets/budget_transactions.JPG?raw=true)
+![The Profile Page!](https://github.com/MHassan47/Budget-App/blob/master/client/src/assets/budget_profile.JPG?raw=true)
+
 # Features
 
 Users are able to:
