@@ -4,10 +4,10 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 
 const registerUser = async (req, res) => {
-  const { firstName, lastName, email, password, profilePicture } = req.body;
+  const { firstName, lastName, email, password } = req.body;
   console.log(req.body);
   try {
-    if (!firstName || !lastName || !email || !password || !profilePicture) {
+    if (!firstName || !lastName || !email || !password) {
       return res.statusstatus(401).json({ message: "Please fill fields" });
     }
     const userExists = await User.findOne({ email });
@@ -21,7 +21,6 @@ const registerUser = async (req, res) => {
       lastName,
       email,
       password: hashedPassword,
-      profilePicture,
     });
     console.log(user);
     if (user) {

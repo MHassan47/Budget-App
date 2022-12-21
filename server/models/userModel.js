@@ -21,7 +21,6 @@ const userSchema = mongoose.Schema(
     },
     profilePicture: {
       type: String,
-      required: [true, "please add a profile picture"],
     },
   },
   {
