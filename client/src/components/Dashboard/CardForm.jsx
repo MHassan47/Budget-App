@@ -4,8 +4,9 @@ import Grid from "@mui/material/Grid";
 import { useState } from "react";
 import axios from "axios";
 import Button from "../Button";
-
+import { useNavigate } from "react-router-dom";
 function CardForm() {
+  const navigate = useNavigate();
   const [number, setNumber] = useState("");
   const [name, setName] = useState("");
   const [expiry, setExpiry] = useState("");
@@ -22,7 +23,7 @@ function CardForm() {
     const body = { number, name, expiry, cvc };
     try {
       const response = await axios.post("/api/cards/add", body);
-      console.log(response);
+      navigate("/dashboard");
     } catch (err) {
       console.log(err);
     }
