@@ -28,9 +28,30 @@ const getTransactions = async () => {
   return response.data;
 };
 
+const editTransaction = async () => {
+  //   const config = {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   };
+
+  const response = await axios.put(API_URL);
+
+  return response.data;
+};
+
+const deleteTransaction = async (id) => {
+  console.log(id);
+  const response = await axios.delete(`/api/transactions/delete/${id}`);
+
+  return response.data;
+};
+
 const transactionService = {
   createTransaction,
   getTransactions,
+  editTransaction,
+  deleteTransaction,
 };
 
 export default transactionService;

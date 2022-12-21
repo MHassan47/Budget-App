@@ -44,6 +44,40 @@ export const getTransactions = createAsyncThunk(
     }
   }
 );
+export const editTransaction = createAsyncThunk(
+  "transactions/editTransaction",
+  async (_, thunkAPI) => {
+    try {
+      //   const token = thunkAPI.getState().auth.user.token;
+      return await transactionService.editTransaction();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+export const deleteTransaction = createAsyncThunk(
+  "transactions/deleteTransaction",
+  async (_, thunkAPI) => {
+    try {
+      //   const token = thunkAPI.getState().auth.user.token;
+      return await transactionService.deleteTransaction();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const transactionSlice = createSlice({
   name: "transactions",
@@ -75,6 +109,34 @@ export const transactionSlice = createSlice({
         state.transactions = action.payload;
       })
       .addCase(getTransactions.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(editTransaction.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(editTransaction.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.transactions = action.payload;
+      })
+      .addCase(editTransaction.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(deleteTransaction.pending, (state) => {
+        state.isdeleteLoading = true;
+      })
+      .addCase(deleteTransaction.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.transactions.filter(
+          (transaction) => transaction._id !== action.payload.id
+        );
+      })
+      .addCase(deleteTransaction.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
