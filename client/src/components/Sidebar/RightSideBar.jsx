@@ -9,6 +9,7 @@ import TransactionList from "../Dashboard/TransactionList";
 import Card from "../Dashboard/Card";
 import TransactionForm from "../Dashboard/TransactionForm";
 import AddCard from "./AddCard";
+import { Avatar } from "@mui/material";
 
 function RightSideBar() {
   const { user } = useSelector((state) => state.auth);
@@ -50,12 +51,18 @@ function RightSideBar() {
       <Grid
         container
         direction="row"
+        alignContent="center"
         justifyContent="flex-end"
         className={`${classes.profile_container}`}
         item
       >
         {user?.firstName} {user?.lastName}
-        <img className={`${classes.pfp}`} src={user.profilePicture} alt="pfp" />
+        <Avatar
+          style={{ height: "3rem", width: "3rem" }}
+          className={`${classes.pfp}`}
+          src={user.profilePicture}
+          alt="pfp"
+        />
       </Grid>
 
       {!loading && primaryCard ? (
