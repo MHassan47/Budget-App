@@ -77,9 +77,23 @@ const getMonthlyTransactions = async (req, res) => {
   }
 };
 
+const deleteTransaction = async (req, res) => {
+  // console.log(req.params.id);
+
+  try {
+    const transaction = await Transaction.findById({ _id: req.params.id });
+    console.log("click");
+    await transaction.remove();
+    res.json({ message: "done" });
+  } catch (err) {
+    res.status(401).json({ message: err });
+  }
+};
+
 module.exports = {
   addTransaction,
   getPreviewTransactions,
   getAllTransactions,
   getMonthlyTransactions,
+  deleteTransaction,
 };

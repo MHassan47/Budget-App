@@ -6,11 +6,13 @@ const {
   getPreviewTransactions,
   getAllTransactions,
   getMonthlyTransactions,
+  deleteTransaction,
 } = require("../controllers/transactionControllers");
 
 router.post("/add", verifyJWT, addTransaction);
 router.get("/preview", verifyJWT, getPreviewTransactions);
 router.get("/", verifyJWT, getAllTransactions);
 router.get("/monthly", verifyJWT, getMonthlyTransactions);
+router.delete("/delete/:id", verifyJWT, deleteTransaction);
 
 module.exports = router;
