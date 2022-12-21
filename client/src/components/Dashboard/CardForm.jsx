@@ -30,7 +30,7 @@ function CardForm() {
   };
 
   return (
-    <Grid>
+    <Grid style={{ marginTop: "10vh" }}>
       <Card
         number={number}
         name={name}
