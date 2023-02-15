@@ -15,14 +15,14 @@ function Landing() {
       justifyContent="center"
       flexDirection="row"
     >
-      <Grid item md={8} justifyContent="center">
+      <Grid item md={7} justifyContent="center">
         {isLogin ? (
           <Login formType={isLogin} />
         ) : (
           <SignUp formType={isLogin} setFormType={setIsLogin} />
         )}
       </Grid>
-      <Grid item md={4}>
+      <Grid item md={5}>
         <LandingRight setFormType={setIsLogin} formType={isLogin} />
       </Grid>
     </Grid>
