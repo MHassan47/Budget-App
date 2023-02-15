@@ -13,29 +13,50 @@ function AllTransactions() {
     (state) => state.transactions
   );
 
+  console.log("----", transactions);
   const columns = [
-    { field: "_id", headerName: "ID" },
-
+    // { field: "_id", headerName: "ID" },
+    {
+      field: "createdAt",
+      headerName: "Date",
+      type: "date",
+      headerAlign: "left",
+      align: "left",
+      flex: 1,
+      valueFormatter: (params) => {
+        const date = new Date(params.value);
+        const formattedDate = new Intl.DateTimeFormat("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "2-digit",
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric",
+        }).format(date);
+        return formattedDate;
+      },
+    },
     {
       field: "type",
       headerName: "Type",
       type: "number",
       headerAlign: "left",
       align: "left",
+      flex: 1,
     },
     {
       field: "category",
       headerName: "Category",
       headerAlign: "left",
-
+      flex: 1,
       align: "left",
     },
     {
       field: "name",
       headerName: "Name",
-
       align: "center",
       cellClassName: "name-column--cell",
+      flex: 1,
     },
     {
       field: "amount",
@@ -43,11 +64,17 @@ function AllTransactions() {
       type: "number",
       headerAlign: "left",
       align: "left",
+      flex: 1,
     },
   ];
 
   return (
-    <Box m="20px" style={{ fontSize: "1.5rem" }}>
+    <Box
+      m="80px"
+      style={{
+        fontSize: "1.5rem",
+      }}
+    >
       <Box
         m="5rem 0 0 0"
         height="75vh"
