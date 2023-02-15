@@ -10,7 +10,7 @@ import {
 } from "../../features/transactions/transactionSlice";
 import { useNavigate } from "react-router-dom";
 import classes from "../Styles/Transaction.module.scss";
-
+import ScaleLoader from "react-spinners/ScaleLoader";
 function TransactionForm() {
   const { transactions, isError, isSuccess, isLoading, message } = useSelector(
     (state) => state.transactions
@@ -24,7 +24,7 @@ function TransactionForm() {
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [error, setError] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const handleTypeChange = (e) => {
     setType(e.target.value);
   };
@@ -36,6 +36,7 @@ function TransactionForm() {
   console.log(type);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     let value = Number(amount);
     if (!type || !category || !name || !amount) {
       setError("Field(s) cannot be empty!");
@@ -48,6 +49,9 @@ function TransactionForm() {
     const body = { type, category, name, amount };
     console.log({ amount });
     dispatch(createTransactions(body));
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
     setType("");
     setCategory("");
     setName("");
@@ -80,6 +84,7 @@ function TransactionForm() {
       >
         Quick Transaction
       </Grid>
+
       <Grid container item md={4} direction="column">
         <form className={`${classes.transaction_form}`}>
           <Grid item display="flex" direction="row">
@@ -149,7 +154,19 @@ function TransactionForm() {
           />
 
           <Button
-            text="COMPLETE"
+            text={
+              loading ? (
+                <ScaleLoader
+                  color="#ffff"
+                  loading={loading}
+                  size={90}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                />
+              ) : (
+                "COMPLETE"
+              )
+            }
             onClick={handleSubmit}
             propClassName={"main__btn"}
           />
