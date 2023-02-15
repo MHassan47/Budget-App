@@ -10,6 +10,7 @@ import Card from "../Dashboard/Card";
 import TransactionForm from "../Dashboard/TransactionForm";
 import AddCard from "./AddCard";
 import { Avatar } from "@mui/material";
+import ClipLoader from "react-spinners/ClipLoader";
 
 function RightSideBar() {
   const { user } = useSelector((state) => state.auth);
@@ -24,7 +25,10 @@ function RightSideBar() {
         const response = await axios.get("/api/cards/primary");
 
         setPrimarCard(...response.data);
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 100);
+        console.log("////", response.data);
       } catch (err) {
         console.log(err);
       }
@@ -74,7 +78,13 @@ function RightSideBar() {
           // preview={false}
         />
       ) : (
-        <AddCard />
+        <ClipLoader
+          color="#4333a1"
+          loading={loading}
+          size={80}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
       )}
       {/* </Grid> */}
       <TransactionList />
