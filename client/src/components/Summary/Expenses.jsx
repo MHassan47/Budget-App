@@ -16,11 +16,15 @@ function Expenses() {
   );
   const dispatch = useDispatch();
   const [currentExpenses, setCurrentExpenses] = useState();
-
+  console.log(transactions);
   useEffect(() => {
+    const date = new Date();
+    const currentMonth = date.getMonth() + 1;
     let totalExpenses = 0;
     const getData = transactions.map((transaction) => {
-      if (transaction.amount < 0) {
+      const createdMonth = new Date(transaction.createdAt).getMonth() + 1;
+
+      if (createdMonth === currentMonth && transaction.amount < 0) {
         totalExpenses += transaction.amount;
       }
     });
