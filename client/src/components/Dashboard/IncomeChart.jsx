@@ -18,11 +18,6 @@ function IncomeChart() {
         const response = await axios.get("/api/transactions/monthly");
 
         setMonthlyExpenses(response.data);
-        // setLoading(false);
-
-        // const getData = await response.data.map((transaction) =>
-
-        // );
       } catch (err) {
         console.log(err);
       }
@@ -53,7 +48,7 @@ function IncomeChart() {
         if (i === month._id.month - 1) {
           expensesData[item] = -month.amount;
         } else {
-          expensesData[item] = 0;
+          if (expensesData[item] === undefined) expensesData[item] = 0;
         }
       });
     } else {
@@ -61,19 +56,11 @@ function IncomeChart() {
         if (i === month._id.month - 1) {
           incomeData[item] = month.amount;
         } else {
-          incomeData[item] = 0;
+          if (incomeData[item] === undefined) incomeData[item] = 0;
         }
       });
     }
   });
-
-  // monthlyExpenses.map((month) => {
-  //   if (month._id.type === "purchase") {
-  //     expensesData[[month._id.day]] = -month.amount;
-  //   } else {
-  //     incomeData[[month._id.day]] = month.amount;
-  //   }
-  // });
 
   const data = {
     datasets: [
