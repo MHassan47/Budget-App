@@ -62,9 +62,9 @@ const getMonthlyTransactions = async (req, res) => {
             month: {
               $month: { $toDate: "$createdAt" },
             },
-            day: {
-              $dayOfMonth: { $toDate: "$createdAt" },
-            },
+            // day: {
+            //   $dayOfMonth: { $toDate: "$createdAt" },
+            // },
           },
           amount: { $sum: "$amount" },
         },
