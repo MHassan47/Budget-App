@@ -1,6 +1,6 @@
 # Budget App
 
-A financial app that allows users to securely track their finances at a glance using visual libraries that make viewing data simple
+A financial app that allows users to securely track their finances at a glance using visual libraries that make viewing data simple!
 
 ![The landing page!](https://github.com/MHassan47/Budget-App/blob/master/client/src/assets/budget_landing.JPG?raw=true)
 
